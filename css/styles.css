@@ -6,22 +6,27 @@
  * For simplicity, no reset or normalize is added. 
  * To learn more, visit: https://css-tricks.com/reboot-resets-reasoning/
  *
+ * Image Sources:
+ * Galaxy 2 (bg gif): https://www.google.com/search?q=starry+sky+gif&tbm=isch&ved=2ahUKEwjSzIjDgcDvAhUdBjQIHQx4DKUQ2-cCegQIABAA&oq=starry+sky+gif&gs_lcp=CgNpbWcQAzICCAAyAggAMgIIADICCAAyBggAEAUQHjIGCAAQBRAeMgYIABAFEB4yBggAEAUQHjIGCAAQBRAeMgYIABAFEB5Q7glY7glgjBBoAHAAeACAAVCIAVCSAQExmAEAoAEBqgELZ3dzLXdpei1pbWfAAQE&sclient=img&ei=hYNWYJL2N52M0PEPjPCxqAo&bih=678&biw=1523&rlz=1C1CHBF_enUS892US892#imgrc=legBmkOwpUVzhM
+ * 
 */
 
 
 /* ---- Base Rules ---- */
 body {
-    background: rgb(136,203,171);
-    background: linear-gradient(0deg, rgba(136,203,171,1) 0%, rgba(0,13,60,1) 100%);
+    /* background: rgb(136,203,171);
+    background: linear-gradient(0deg, rgba(136,203,171,1) 0%, rgba(0,13,60,1) 100%); */
     margin: 0;
-    font-family: 'Merriweather', serif;
+    font-family: 'Audiowide', cursive;
     color: #fff;
+    background-image: url(/images/galaxy2.gif);
+    background-size: contain;
 }
 
 
 /* Typeography General*/
 h1 {
-    font-family: 'Fira Sans', sans-serif;
+    font-family: 'Megrim', cursive;
     font-size: 3em;
     margin: 2em 1rem;
 }
@@ -35,7 +40,7 @@ h1 {
 
 h2 {
     border-bottom: 1px solid #cc1;
-    font-family: 'Oxygen', Sans-Serif;
+    font-family: 'Della Respira', serif;
     font-size: 3em;
     color: #fff;
 }
@@ -88,6 +93,11 @@ section {
     transition: ease 0.3s all;
 }
 
+.selected {
+    background: #333;
+    color: #fff;
+}
+
 /* Header Styles */
 .page__header {
     background: #fff;
@@ -106,6 +116,19 @@ section {
 
 .page__footer p{
     color: #fff;
+}
+
+/* Button Styles */
+.scrollBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+    border: none;
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
 }
 
 
@@ -132,7 +155,7 @@ section:nth-of-type(even) .landing__container {
 /* Background Circles */
 /* Note that background circles are created with psuedo elements before and after */
 /* Circles appear to be random do to use of :nth-of-type psuedo class */
-section:nth-of-type(odd) .landing__container::before {
+/* section:nth-of-type(odd) .landing__container::before {
     content: '';
     background: rgba(255, 255, 255, 0.187);
     position: absolute;
@@ -187,7 +210,7 @@ section:nth-of-type(3n + 1) .landing__container::after {
     border-radius: 50%;
     opacity: 0;
     transition: ease 0.5s all;
-}
+} */
 
 
 /* ---- Theme State Rules ---- */
