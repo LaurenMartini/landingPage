@@ -112,7 +112,7 @@ section {
     transition: ease 0.3s all;
 }
 
-.navbar__menu .menu__link.selected {
+.navbar__menu .menu__link.active__section {
     background: #000;
     color: #fff;
 }

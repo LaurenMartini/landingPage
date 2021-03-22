@@ -132,9 +132,9 @@ function addActiveClass(anchorElem) {
         console.log('anchor elem: ', anchorElem);
         if (navLinkList[i].hash === anchorElem) {
             console.log('matches');
-            navLinkList[i].classList.add('selected');
+            navLinkList[i].classList.add('active__section');
         } else {
-            navLinkList[i].classList.remove('selected');
+            navLinkList[i].classList.remove('active__section');
         }
         console.log('navLinkList[i] class list: ', navLinkList[i].classList);
     }
