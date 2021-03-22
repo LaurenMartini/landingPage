@@ -119,24 +119,24 @@ function addActiveClass(anchorElem) {
         const currentChild = sectionElem.children[i];
         if (currentChild.id === noHashAnchor && !currentChild.classList.contains('your-active-class')) {
             currentChild.classList.add('your-active-class');
-        } else if (currentChild.classList.contains('your-active-class')) {
+        } else {
             currentChild.classList.remove('your-active-class');
         }
     }
-}
 
-// Add class 'selected' to link when clicked on or top of viewport
-function addSelectedClass(anchorElem) {
-    for (let i = 0; i < navListElems.childElementCount; i++) {
-        const currentChild = navListElems.children[i];
-        const currentLink = currentChild.firstChild;
-        console.log('current link: ', currentLink);
-        console.log('current link hash: ', currentLink.hash);
-        if(currentLink.hash === anchorElem && !currentLink.classList.contains('selected')) {
-            currentLink.classList.add('selected');
-        } else if(currentLink.classList.contains('selected')) {
-            currentLink.classList.remove('selected');
+    //go through the links
+    const navLinkList = document.querySelectorAll('.menu__link');
+    console.log(navLinkList);
+    for (let i = 0; i < navLinkList.length; i++) {
+        console.log('nav hash: ', navLinkList[i].hash);
+        console.log('anchor elem: ', anchorElem);
+        if (navLinkList[i].hash === anchorElem) {
+            console.log('matches');
+            navLinkList[i].classList.add('selected');
+        } else {
+            navLinkList[i].classList.remove('selected');
         }
+        console.log('navLinkList[i] class list: ', navLinkList[i].classList);
     }
 }
 
@@ -146,20 +146,17 @@ function scrollToAnchor(anchorElem) {
         behavior: 'smooth'
     });
     addActiveClass(anchorElem);
-    // addSelectedClass(anchorElem); //- doesn't work...
 }
 
 // Scroll to top of page upon button click
 function scrollToTop() {
-    document.body.scrollTop = 0; // for safari
-    document.documentElement.scrollTop = 0; // for all other browsers
-
+    window.scrollTo({top: 0, behavior: 'smooth'});
     // remove active class from all sections as none are active
-    
 }
 
 // Show scroll to top button when page is scrolled
 function uponScroll() {
+    // body is used for Safari, documentElement is for all other browsers
     if(document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
         scrollBtn.style.display = "block";
     } else {
