@@ -29,7 +29,7 @@ const navListElems = document.getElementById("navbar__list");
 // this holds the elements that will populate the nav bar
 const sectionElem = document.querySelector('.section__container');
 // mutation observer options
-const observeElem = { attributes: true, childList: true, subtree: true };
+const observeElem = { childList: true, subtree: true };
 // initialize observer
 const observer = new MutationObserver(buildNav);
 // scroll button
@@ -61,28 +61,52 @@ function addElemsToFragment(fragmentElem, numberOfLoops, childElems) {
         anchorElem.setAttribute('class', 'menu__link');
         anchorElem.innerText = childElems[i].dataset.nav;
 
-        // add click event to the anchor
-        anchorElem.addEventListener('click', function(event) {
-            event.preventDefault();
-            scrollToAnchor(anchorLink);
-        })
-
         // add class to list element
         listElem.setAttribute('class', 'navbar__listElem');
 
         // append anchor to the list elem
         listElem.appendChild(anchorElem);
 
+        // add click event to the list item
+        listElem.addEventListener('click', function(event) {
+            event.preventDefault();
+            scrollToAnchor(anchorLink);
+        })
+
         // add list elem to fragment
         fragmentElem.appendChild(listElem);
     }
 }
+
+// check if in viewport
+// Code Source: https://www.javascripttutorial.net/dom/css/check-if-an-element-is-visible-in-the-viewport/
+function isActiveSection(currentSection){
+    const boundRect = currentSection.getBoundingClientRect();
+    return (
+        boundRect.top >= 0 &&
+        boundRect.left >= 0 &&
+        boundRect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        boundRect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+}
+
+// remove active class
+function removeActiveClass() {
+    const navLinkList = document.querySelectorAll('.navbar__listElem');
+    for (let i = 0; i < navLinkList.length; i++) {
+        navLinkList[i].firstChild.classList.remove('active__section');
+    }
+    for (let i = 0; i < sectionElem.childElementCount; i++){
+        const currentChild = sectionElem.children[i];
+        currentChild.classList.remove('your-active-class');
+    }
+}
+
 /**
  * End Helper Functions
  * Begin Main Functions
  * 
 */
-
 // build the nav
 function buildNav() {
     // hide current nav elems
@@ -125,18 +149,13 @@ function addActiveClass(anchorElem) {
     }
 
     //go through the links
-    const navLinkList = document.querySelectorAll('.menu__link');
-    console.log(navLinkList);
+    const navLinkList = document.querySelectorAll('.navbar__listElem');
     for (let i = 0; i < navLinkList.length; i++) {
-        console.log('nav hash: ', navLinkList[i].hash);
-        console.log('anchor elem: ', anchorElem);
-        if (navLinkList[i].hash === anchorElem) {
-            console.log('matches');
-            navLinkList[i].classList.add('active__section');
+        if (navLinkList[i].firstChild.hash === anchorElem) {
+            navLinkList[i].firstChild.classList.add('active__section');
         } else {
-            navLinkList[i].classList.remove('active__section');
+            navLinkList[i].firstChild.classList.remove('active__section');
         }
-        console.log('navLinkList[i] class list: ', navLinkList[i].classList);
     }
 }
 
@@ -145,13 +164,13 @@ function scrollToAnchor(anchorElem) {
     document.querySelector(anchorElem).scrollIntoView({
         behavior: 'smooth'
     });
-    addActiveClass(anchorElem);
 }
 
 // Scroll to top of page upon button click
 function scrollToTop() {
     window.scrollTo({top: 0, behavior: 'smooth'});
     // remove active class from all sections as none are active
+    removeActiveClass();
 }
 
 // Show scroll to top button when page is scrolled
@@ -159,8 +178,17 @@ function uponScroll() {
     // body is used for Safari, documentElement is for all other browsers
     if(document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
         scrollBtn.style.display = "block";
+        //check to see what section is centered in the view
+        for (let i = 0; i < sectionElem.childElementCount; i++) {
+            const anchorLink = '#section' + (i + 1);
+            if (isActiveSection(sectionElem.children[i])) {
+                addActiveClass(anchorLink);
+                break;
+            }
+        }
     } else {
         scrollBtn.style.display = "none";
+        removeActiveClass();
     }
 }
 
