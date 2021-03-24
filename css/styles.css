@@ -56,7 +56,7 @@ main {
 
 section {
     position: relative;
-    min-height: 80vh;
+    min-height: 60vh;
 }
 
 
@@ -151,7 +151,7 @@ section:nth-of-type(even) .landing__container {
 /* Note: your-active-class class is applied through javascript. You should update the class here and in the index.html to what you set in your javascript file.  */
 section.your-active-class {
     background: rgb(0, 0, 0);
-    background: linear-gradient(0deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
 }
 
 section.your-active-class .landing__container::before {

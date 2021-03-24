@@ -83,10 +83,7 @@ function addElemsToFragment(fragmentElem, numberOfLoops, childElems) {
 function isActiveSection(currentSection){
     const boundRect = currentSection.getBoundingClientRect();
     return (
-        boundRect.top >= 0 &&
-        boundRect.left >= 0 &&
-        boundRect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        boundRect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        boundRect.top >= 0 
     );
 }
 
@@ -164,6 +161,7 @@ function scrollToAnchor(anchorElem) {
     document.querySelector(anchorElem).scrollIntoView({
         behavior: 'smooth'
     });
+    addActiveClass(anchorElem);
 }
 
 // Scroll to top of page upon button click
